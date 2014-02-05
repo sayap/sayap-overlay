@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>sayap</name>
+    <description>Gentoo overlay for miscellaneous stuffs</description>
+    <homepage>https://github.com/sayap/sayap-overlay</homepage>
+    <owner>
+      <email>sokann@gmail.com</email>
+      <name>Yap Sok Ann</name>
+    </owner>
+    <source type="git">git://github.com/sayap/sayap-overlay.git</source>
+    <feed>https://github.com/sayap/sayap-overlay/commits/master.atom</feed>
+  </repo>
+</repositories>
