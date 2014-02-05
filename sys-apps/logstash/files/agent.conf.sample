@@ -1,0 +1,15 @@
+input {
+  file {
+    path => [ "/var/log/messages", "/var/log/*.log" ]
+  }
+}
+
+output {
+  stdout {
+    debug => true
+  }
+
+  #elasticsearch {
+  #  embedded => true
+  #}
+}
