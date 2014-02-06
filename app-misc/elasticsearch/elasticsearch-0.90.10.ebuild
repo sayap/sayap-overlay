@@ -3,7 +3,7 @@
 
 EAPI=5
 
-inherit eutils systemd
+inherit eutils systemd user
 
 MY_PN="${PN%-bin}"
 DESCRIPTION="Open Source, Distributed, RESTful, Search Engine"
