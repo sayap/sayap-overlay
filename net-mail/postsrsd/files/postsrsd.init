@@ -1,0 +1,13 @@
+#!/sbin/runscript
+
+name="PostSRSd"
+command="/usr/sbin/postsrsd"
+pidfile="/run/postsrs.pid"
+command_args="-4 -D -p ${pidfile}
+    -d ${DOMAIN_NAME} -s ${SECRET_FILE}
+    -f ${FORWARD_LOOKUP_PORT} -r ${REVERSE_LOOKUP_PORT}"
+
+depend() {
+        use net
+        before postfix
+}
