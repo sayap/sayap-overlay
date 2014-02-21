@@ -1,0 +1,17 @@
+--- src/checks.c.orig	2014-02-21 17:14:29.744981027 +0800
++++ src/checks.c	2014-02-21 17:15:06.974893416 +0800
+@@ -1733,11 +1733,9 @@
+ 	t->process = process_chk;
+ 	t->context = check;
+ 
+-	/* check this every ms */
+-	t->expire = tick_add(now_ms,
+-			     MS_TO_TICKS(((mininter &&
+-					   mininter >= srv_getinter(check)) ?
+-					  mininter : srv_getinter(check)) * srvpos / nbcheck));
++	/* check immediately */
++	t->expire = tick_add(now_ms, 0);
++
+ 	check->start = now;
+ 	task_queue(t);
+ 
