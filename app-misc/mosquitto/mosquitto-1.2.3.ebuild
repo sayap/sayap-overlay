@@ -6,7 +6,7 @@ EAPI="4"
 PYTHON_DEPEND="python? 2:2.6 3"
 SUPPORT_PYTHON_ABIS="1"
 
-inherit eutils flag-o-matic multilib python
+inherit eutils flag-o-matic multilib python user
 
 DESCRIPTION="An Open Source MQTT v3 Broker"
 HOMEPAGE="http://mosquitto.org/"
