@@ -24,7 +24,8 @@ KEYWORDS="~amd64 ~x86"
 IUSE="bridge examples +persistence python ssl tcpd"
 
 RDEPEND="tcpd? ( sys-apps/tcp-wrappers )
-		ssl? ( >=dev-libs/openssl-1.0.0 )"
+		ssl? ( >=dev-libs/openssl-1.0.0 )
+		net-dns/c-ares"
 DEPEND="${RDEPEND}"
 
 pkg_setup() {
