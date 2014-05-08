@@ -1,0 +1,13 @@
+#!/sbin/runscript
+
+start() {
+	ebegin "Starting mosquitto"
+	start-stop-daemon --start --exec /usr/sbin/mosquitto --background --make-pidfile --pidfile /var/run/mosquitto.pid -- --config-file /etc/mosquitto/mosquitto.conf
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping mosquitto"
+	start-stop-daemon --stop --exec /usr/sbin/mosquitto --pidfile /var/run/mosquitto.pid
+	eend $?
+}
