@@ -126,6 +126,12 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
+# drizzle-module (https://github.com/openresty/drizzle-nginx-module, BSD-2)
+HTTP_DRIZZLE_MODULE_PV="0.1.7"
+HTTP_DRIZZLE_MODULE_P="drizzle-nginx-module-${HTTP_DRIZZLE_MODULE_PV}"
+HTTP_DRIZZLE_MODULE_URI="https://github.com/openresty/drizzle-nginx-module/archive/v${HTTP_DRIZZLE_MODULE_PV}.tar.gz"
+HTTP_DRIZZLE_MODULE_WD="${WORKDIR}/${HTTP_DRIZZLE_MODULE_P}"
+
 # postgres-module (https://github.com/FRiCKLE/ngx_postgres, BSD-2)
 HTTP_POSTGRES_MODULE_PV="1.0rc3"
 HTTP_POSTGRES_MODULE_P="ngx_http_postgres_module-${HTTP_POSTGRES_MODULE_PV}"
@@ -162,6 +168,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_drizzle? ( ${HTTP_DRIZZLE_MODULE_URI} -> ${HTTP_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_http_postgres? ( ${HTTP_POSTGRES_MODULE_URI} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
 	nginx_modules_http_rds_json? ( ${HTTP_RDS_JSON_MODULE_URI} -> ${HTTP_RDS_JSON_MODULE_P}.tar.gz )"
 
@@ -195,6 +202,7 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
+	http_drizzle
 	http_postgres
 	http_rds_json"
 
@@ -238,6 +246,7 @@ CDEPEND="
 	nginx_modules_http_metrics? ( dev-libs/yajl )
 	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_security? ( >=dev-libs/libxml2-2.7.8 dev-libs/apr-util www-servers/apache )
+	nginx_modules_http_drizzle? ( dev-db/drizzle )
 	nginx_modules_http_postgres? ( dev-db/postgresql-base )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
@@ -437,6 +446,11 @@ src_configure() {
 	if use nginx_modules_http_ajp ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_drizzle ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_DRIZZLE_MODULE_WD}"
 	fi
 
 	if use nginx_modules_http_postgres ; then
