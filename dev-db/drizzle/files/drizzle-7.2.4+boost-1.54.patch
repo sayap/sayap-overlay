@@ -1,0 +1,68 @@
+Description: Boost1.54 build failures
+ The autoconf macro fails to detect boost::thread, as boost:system needs to
+ be also linked in the testcase.
+ Some binaries related to libdrizzledmessage needs also linkage with boost.
+ Also boost::programm-ptions do not take a pointer to char*, reworked to use
+ std::string
+Author: Tobias Frost <tobi@coldtobi.de>
+Bug: https://bugs.launchpad.net/drizzle/+bug/1132648
+Last-Update: 2013-08-21
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/client/drizzleslap.cc
++++ b/client/drizzleslap.cc
+@@ -433,7 +433,8 @@
+  */
+ int main(int argc, char **argv)
+ {
+-  char *password= NULL;
++  std::string stpassword;
++
+   try
+   {
+     po::options_description commandline_options("Options used only in command line");
+@@ -535,7 +536,7 @@
+     po::options_description client_options("Options specific to the client");
+     client_options.add_options()
+       ("host,h",po::value<string>(&host)->default_value("localhost"),"Connect to the host")
+-      ("password,P",po::value<char *>(&password),
++      ("password,P",po::value<std::string >(&stpassword),
+        "Password to use when connecting to server. If password is not given it's asked from the tty")
+       ("port,p",po::value<uint32_t>(), "Port number to use for connection")
+       ("protocol",po::value<string>(&opt_protocol)->default_value("mysql"),
+@@ -643,13 +644,13 @@
+   {
+     if (not opt_password.empty())
+       opt_password.erase();
+-    if (password == PASSWORD_SENTINEL)
++    if (stpassword == PASSWORD_SENTINEL)
+     {
+       opt_password= "";
+     }
+     else
+     {
+-      opt_password= password;
++      opt_password= stpassword;
+       tty_password= false;
+     }
+   }
+--- a/drizzled/message/include.am
++++ b/drizzled/message/include.am
+@@ -89,7 +89,7 @@
+ drizzled_message_schema_writer_CXXFLAGS = ${MESSAGE_AM_CXXFLAGS}
+ 
+ drizzled_message_table_reader_SOURCES =  drizzled/message/table_reader.cc
+-drizzled_message_table_reader_LDADD = ${MESSAGE_LDADD}
++drizzled_message_table_reader_LDADD = ${BOOST_LIBS} ${MESSAGE_LDADD}
+ drizzled_message_table_reader_CXXFLAGS = ${MESSAGE_AM_CXXFLAGS}
+ 
+ drizzled_message_table_raw_reader_SOURCES =  drizzled/message/table_raw_reader.cc
+@@ -104,7 +104,7 @@
+ drizzled_message_table_writer_CXXFLAGS = ${MESSAGE_AM_CXXFLAGS}
+ 
+ drizzled_message_transaction_writer_SOURCES =  drizzled/message/transaction_writer.cc
+-drizzled_message_transaction_writer_LDADD = ${MESSAGE_LDADD} ${top_builddir}/drizzled/algorithm/libhash.la
++drizzled_message_transaction_writer_LDADD = ${BOOST_LIBS} ${MESSAGE_LDADD} ${top_builddir}/drizzled/algorithm/libhash.la
+ drizzled_message_transaction_writer_CXXFLAGS = ${MESSAGE_AM_CXXFLAGS} ${NO_WERROR}
+ 
+ EXTRA_DIST += \
