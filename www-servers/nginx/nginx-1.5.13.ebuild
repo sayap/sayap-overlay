@@ -127,40 +127,40 @@ HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HT
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
 # nginx_devel_kit (https://github.com/simpl/ngx_devel_kit, BSD)
-HTTP_DEVEL_KIT_MODULE_PV="0.2.19"
-HTTP_DEVEL_KIT_MODULE_P="ngx_devel_kit-${HTTP_DEVEL_KIT_MODULE_PV}"
-HTTP_DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${HTTP_DEVEL_KIT_MODULE_PV}.tar.gz"
-HTTP_DEVEL_KIT_MODULE_WD="${WORKDIR}/${HTTP_DEVEL_KIT_MODULE_P}"
+NGX_DEVEL_KIT_MODULE_PV="0.2.19"
+NGX_DEVEL_KIT_MODULE_P="ngx_devel_kit-${NGX_DEVEL_KIT_MODULE_PV}"
+NGX_DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${HTTP_DEVEL_KIT_MODULE_PV}.tar.gz"
+NGX_DEVEL_KIT_MODULE_WD="${WORKDIR}/${HTTP_DEVEL_KIT_MODULE_P}"
 
 # set-misc-module (https://github.com/openresty/set-misc-nginx-module, BSD-2)
-HTTP_SET_MISC_MODULE_PV="0.24"
-HTTP_SET_MISC_MODULE_P="set-misc-nginx-module-${HTTP_SET_MISC_MODULE_PV}"
-HTTP_SET_MISC_MODULE_URI="https://github.com/openresty/set-misc-nginx-module/archive/v${HTTP_SET_MISC_MODULE_PV}.tar.gz"
-HTTP_SET_MISC_MODULE_WD="${WORKDIR}/${HTTP_SET_MISC_MODULE_P}"
+OPENRESTY_SET_MISC_MODULE_PV="0.24"
+OPENRESTY_SET_MISC_MODULE_P="set-misc-nginx-module-${OPENRESTY_SET_MISC_MODULE_PV}"
+OPENRESTY_SET_MISC_MODULE_URI="https://github.com/openresty/set-misc-nginx-module/archive/v${OPENRESTY_SET_MISC_MODULE_PV}.tar.gz"
+OPENRESTY_SET_MISC_MODULE_WD="${WORKDIR}/${OPENRESTY_SET_MISC_MODULE_P}"
 
 # drizzle-module (https://github.com/openresty/drizzle-nginx-module, BSD-2)
-HTTP_DRIZZLE_MODULE_PV="0.1.7"
-HTTP_DRIZZLE_MODULE_P="drizzle-nginx-module-${HTTP_DRIZZLE_MODULE_PV}"
-HTTP_DRIZZLE_MODULE_URI="https://github.com/openresty/drizzle-nginx-module/archive/v${HTTP_DRIZZLE_MODULE_PV}.tar.gz"
-HTTP_DRIZZLE_MODULE_WD="${WORKDIR}/${HTTP_DRIZZLE_MODULE_P}"
+OPENRESTY_DRIZZLE_MODULE_PV="0.1.7"
+OPENRESTY_DRIZZLE_MODULE_P="drizzle-nginx-module-${OPENRESTY_DRIZZLE_MODULE_PV}"
+OPENRESTY_DRIZZLE_MODULE_URI="https://github.com/openresty/drizzle-nginx-module/archive/v${OPENRESTY_DRIZZLE_MODULE_PV}.tar.gz"
+OPENRESTY_DRIZZLE_MODULE_WD="${WORKDIR}/${OPENRESTY_DRIZZLE_MODULE_P}"
 
 # postgres-module (https://github.com/FRiCKLE/ngx_postgres, BSD-2)
-HTTP_POSTGRES_MODULE_PV="1.0rc3"
-HTTP_POSTGRES_MODULE_P="ngx_http_postgres_module-${HTTP_POSTGRES_MODULE_PV}"
-HTTP_POSTGRES_MODULE_URI="https://github.com/FRiCKLE/ngx_postgres/archive/${HTTP_POSTGRES_MODULE_PV}.tar.gz"
-HTTP_POSTGRES_MODULE_WD="${WORKDIR}/ngx_postgres-${HTTP_POSTGRES_MODULE_PV}"
+OPENRESTY_POSTGRES_MODULE_PV="1.0rc3"
+OPENRESTY_POSTGRES_MODULE_P="ngx_postgres-${OPENRESTY_POSTGRES_MODULE_PV}"
+OPENRESTY_POSTGRES_MODULE_URI="https://github.com/FRiCKLE/ngx_postgres/archive/${OPENRESTY_POSTGRES_MODULE_PV}.tar.gz"
+OPENRESTY_POSTGRES_MODULE_WD="${WORKDIR}/${OPENRESTY_POSTGRES_MODULE_P}"
 
 # rds-csv-module (https://github.com/openresty/rds-csv-nginx-module, BSD-2)
-HTTP_RDS_CSV_MODULE_PV="0.05"
-HTTP_RDS_CSV_MODULE_P="rds-csv-nginx-module-${HTTP_RDS_CSV_MODULE_PV}"
-HTTP_RDS_CSV_MODULE_URI="https://github.com/openresty/rds-csv-nginx-module/archive/v${HTTP_RDS_CSV_MODULE_PV}.tar.gz"
-HTTP_RDS_CSV_MODULE_WD="${WORKDIR}/${HTTP_RDS_CSV_MODULE_P}"
+OPENRESTY_RDS_CSV_MODULE_PV="0.05"
+OPENRESTY_RDS_CSV_MODULE_P="rds-csv-nginx-module-${OPENRESTY_RDS_CSV_MODULE_PV}"
+OPENRESTY_RDS_CSV_MODULE_URI="https://github.com/openresty/rds-csv-nginx-module/archive/v${OPENRESTY_RDS_CSV_MODULE_PV}.tar.gz"
+OPENRESTY_RDS_CSV_MODULE_WD="${WORKDIR}/${OPENRESTY_RDS_CSV_MODULE_P}"
 
 # rds-json-module (https://github.com/openresty/rds-json-nginx-module, BSD-2)
-HTTP_RDS_JSON_MODULE_PV="0.13"
-HTTP_RDS_JSON_MODULE_P="rds-json-nginx-module-${HTTP_RDS_JSON_MODULE_PV}"
-HTTP_RDS_JSON_MODULE_URI="https://github.com/openresty/rds-json-nginx-module/archive/v${HTTP_RDS_JSON_MODULE_PV}.tar.gz"
-HTTP_RDS_JSON_MODULE_WD="${WORKDIR}/${HTTP_RDS_JSON_MODULE_P}"
+OPENRESTY_RDS_JSON_MODULE_PV="0.13"
+OPENRESTY_RDS_JSON_MODULE_P="rds-json-nginx-module-${OPENRESTY_RDS_JSON_MODULE_PV}"
+OPENRESTY_RDS_JSON_MODULE_URI="https://github.com/openresty/rds-json-nginx-module/archive/v${OPENRESTY_RDS_JSON_MODULE_PV}.tar.gz"
+OPENRESTY_RDS_JSON_MODULE_WD="${WORKDIR}/${OPENRESTY_RDS_JSON_MODULE_P}"
 
 
 inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator
@@ -186,12 +186,12 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
-	nginx_modules_http_devel_kit? ( ${HTTP_DEVEL_KIT_MODULE_URI} -> ${HTTP_DEVEL_KIT_MODULE_P}.tar.gz )
-	nginx_modules_http_set_misc? ( ${HTTP_SET_MISC_MODULE_URI} -> ${HTTP_SET_MISC_MODULE_P}.tar.gz )
-	nginx_modules_http_drizzle? ( ${HTTP_DRIZZLE_MODULE_URI} -> ${HTTP_DRIZZLE_MODULE_P}.tar.gz )
-	nginx_modules_http_postgres? ( ${HTTP_POSTGRES_MODULE_URI} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
-	nginx_modules_http_rds_csv? ( ${HTTP_RDS_CSV_MODULE_URI} -> ${HTTP_RDS_CSV_MODULE_P}.tar.gz )
-	nginx_modules_http_rds_json? ( ${HTTP_RDS_JSON_MODULE_URI} -> ${HTTP_RDS_JSON_MODULE_P}.tar.gz )"
+	nginx_modules_ngx_devel_kit? ( ${NGX_DEVEL_KIT_MODULE_URI} -> ${NGX_DEVEL_KIT_MODULE_P}.tar.gz )
+	nginx_modules_openresty_set_misc? ( ${OPENRESTY_SET_MISC_MODULE_URI} -> ${OPENRESTY_SET_MISC_MODULE_P}.tar.gz )
+	nginx_modules_openresty_drizzle? ( ${OPENRESTY_DRIZZLE_MODULE_URI} -> ${OPENRESTY_DRIZZLE_MODULE_P}.tar.gz )
+	nginx_modules_openresty_postgres? ( ${OPENRESTY_POSTGRES_MODULE_URI} -> ${OPENRESTY_POSTGRES_MODULE_P}.tar.gz )
+	nginx_modules_openresty_rds_csv? ( ${OPENRESTY_RDS_CSV_MODULE_URI} -> ${OPENRESTY_RDS_CSV_MODULE_P}.tar.gz )
+	nginx_modules_openresty_rds_json? ( ${OPENRESTY_RDS_JSON_MODULE_URI} -> ${OPENRESTY_RDS_JSON_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
@@ -223,12 +223,12 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
-	http_devel_kit
-	http_set_misc
-	http_drizzle
-	http_postgres
-	http_rds_csv
-	http_rds_json"
+	ngx_devel_kit
+	openresty_set_misc
+	openresty_drizzle
+	openresty_postgres
+	openresty_rds_csv
+	openresty_rds_json"
 
 IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl
 userland_GNU vim-syntax"
@@ -270,8 +270,8 @@ CDEPEND="
 	nginx_modules_http_metrics? ( dev-libs/yajl )
 	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_security? ( >=dev-libs/libxml2-2.7.8 dev-libs/apr-util www-servers/apache )
-	nginx_modules_http_drizzle? ( dev-db/drizzle )
-	nginx_modules_http_postgres? ( dev-db/postgresql-base )"
+	nginx_modules_openresty_drizzle? ( dev-db/drizzle )
+	nginx_modules_openresty_postgres? ( dev-db/postgresql-base )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
 	nginx_modules_http_security? (
@@ -287,7 +287,7 @@ REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
 	nginx_modules_http_push_stream? ( ssl )
-	nginx_modules_http_set_misc? ( nginx_modules_http_devel_kit )"
+	nginx_modules_openresty_set_misc? ( nginx_modules_ngx_devel_kit )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -473,34 +473,28 @@ src_configure() {
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_devel_kit ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_DEVEL_KIT_MODULE_WD}"
+	if use nginx_modules_ngx_devel_kit ; then
+		myconf+=" --add-module=${NGX_DEVEL_KIT_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_set_misc ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_SET_MISC_MODULE_WD}"
+	if use nginx_modules_openresty_set_misc ; then
+		myconf+=" --add-module=${OPENRESTY_SET_MISC_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_drizzle ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_DRIZZLE_MODULE_WD}"
+	if use nginx_modules_openresty_drizzle ; then
+		myconf+=" --add-module=${OPENRESTY_DRIZZLE_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_postgres ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_POSTGRES_MODULE_WD}"
+	if use nginx_modules_openresty_postgres ; then
+		myconf+=" --add-module=${OPENRESTY_POSTGRES_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_rds_csv ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_RDS_CSV_MODULE_WD}"
+	if use nginx_modules_openresty_rds_csv ; then
+		myconf+=" --add-module=${OPENRESTY_RDS_CSV_MODULE_WD}"
 	fi
 
-	if use nginx_modules_http_rds_json ; then
-		http_enabled=1
-		myconf+=" --add-module=${HTTP_RDS_JSON_MODULE_WD}"
+	if use nginx_modules_openresty_rds_json ; then
+		myconf+=" --add-module=${OPENRESTY_RDS_JSON_MODULE_WD}"
 	fi
 
 	if use http || use http-cache; then
