@@ -150,6 +150,12 @@ HTTP_POSTGRES_MODULE_P="ngx_http_postgres_module-${HTTP_POSTGRES_MODULE_PV}"
 HTTP_POSTGRES_MODULE_URI="https://github.com/FRiCKLE/ngx_postgres/archive/${HTTP_POSTGRES_MODULE_PV}.tar.gz"
 HTTP_POSTGRES_MODULE_WD="${WORKDIR}/ngx_postgres-${HTTP_POSTGRES_MODULE_PV}"
 
+# rds-csv-module (https://github.com/openresty/rds-csv-nginx-module, BSD-2)
+HTTP_RDS_CSV_MODULE_PV="0.05"
+HTTP_RDS_CSV_MODULE_P="rds-csv-nginx-module-${HTTP_RDS_CSV_MODULE_PV}"
+HTTP_RDS_CSV_MODULE_URI="https://github.com/openresty/rds-csv-nginx-module/archive/v${HTTP_RDS_CSV_MODULE_PV}.tar.gz"
+HTTP_RDS_CSV_MODULE_WD="${WORKDIR}/${HTTP_RDS_CSV_MODULE_P}"
+
 # rds-json-module (https://github.com/openresty/rds-json-nginx-module, BSD-2)
 HTTP_RDS_JSON_MODULE_PV="0.13"
 HTTP_RDS_JSON_MODULE_P="rds-json-nginx-module-${HTTP_RDS_JSON_MODULE_PV}"
@@ -184,6 +190,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_set_misc? ( ${HTTP_SET_MISC_MODULE_URI} -> ${HTTP_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_http_drizzle? ( ${HTTP_DRIZZLE_MODULE_URI} -> ${HTTP_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_http_postgres? ( ${HTTP_POSTGRES_MODULE_URI} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
+	nginx_modules_http_rds_csv? ( ${HTTP_RDS_CSV_MODULE_URI} -> ${HTTP_RDS_CSV_MODULE_P}.tar.gz )
 	nginx_modules_http_rds_json? ( ${HTTP_RDS_JSON_MODULE_URI} -> ${HTTP_RDS_JSON_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
@@ -220,6 +227,7 @@ NGINX_MODULES_3RD="
 	http_set_misc
 	http_drizzle
 	http_postgres
+	http_rds_csv
 	http_rds_json"
 
 IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl
@@ -483,6 +491,11 @@ src_configure() {
 	if use nginx_modules_http_postgres ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_POSTGRES_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_rds_csv ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_RDS_CSV_MODULE_WD}"
 	fi
 
 	if use nginx_modules_http_rds_json ; then
