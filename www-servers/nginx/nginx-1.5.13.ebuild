@@ -126,12 +126,6 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
-# nginx_devel_kit (https://github.com/simpl/ngx_devel_kit, BSD)
-NGX_DEVEL_KIT_MODULE_PV="0.2.19"
-NGX_DEVEL_KIT_MODULE_P="ngx_devel_kit-${NGX_DEVEL_KIT_MODULE_PV}"
-NGX_DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${HTTP_DEVEL_KIT_MODULE_PV}.tar.gz"
-NGX_DEVEL_KIT_MODULE_WD="${WORKDIR}/${HTTP_DEVEL_KIT_MODULE_P}"
-
 # set-misc-module (https://github.com/openresty/set-misc-nginx-module, BSD-2)
 OPENRESTY_SET_MISC_MODULE_PV="0.24"
 OPENRESTY_SET_MISC_MODULE_P="set-misc-nginx-module-${OPENRESTY_SET_MISC_MODULE_PV}"
@@ -186,7 +180,6 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
-	nginx_modules_ngx_devel_kit? ( ${NGX_DEVEL_KIT_MODULE_URI} -> ${NGX_DEVEL_KIT_MODULE_P}.tar.gz )
 	nginx_modules_openresty_set_misc? ( ${OPENRESTY_SET_MISC_MODULE_URI} -> ${OPENRESTY_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_openresty_drizzle? ( ${OPENRESTY_DRIZZLE_MODULE_URI} -> ${OPENRESTY_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_openresty_postgres? ( ${OPENRESTY_POSTGRES_MODULE_URI} -> ${OPENRESTY_POSTGRES_MODULE_P}.tar.gz )
@@ -223,7 +216,6 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
-	ngx_devel_kit
 	openresty_set_misc
 	openresty_drizzle
 	openresty_postgres
@@ -286,8 +278,7 @@ REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
-	nginx_modules_http_push_stream? ( ssl )
-	nginx_modules_openresty_set_misc? ( nginx_modules_ngx_devel_kit )"
+	nginx_modules_http_push_stream? ( ssl )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -357,7 +348,7 @@ src_configure() {
 
 	cd "${S}"
 
-	local myconf= http_enabled= mail_enabled=
+	local myconf= http_enabled= mail_enabled= need_devel_kit=
 
 	use aio       && myconf+=" --with-file-aio --with-aio_module"
 	use debug     && myconf+=" --with-debug"
@@ -414,7 +405,7 @@ src_configure() {
 
 	if use nginx_modules_http_lua; then
 		http_enabled=1
-		myconf+=" --add-module=${DEVEL_KIT_MODULE_WD}"
+		need_devel_kit=1
 		myconf+=" --add-module=${HTTP_LUA_MODULE_WD}"
 	fi
 
@@ -473,11 +464,8 @@ src_configure() {
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
 	fi
 
-	if use nginx_modules_ngx_devel_kit ; then
-		myconf+=" --add-module=${NGX_DEVEL_KIT_MODULE_WD}"
-	fi
-
 	if use nginx_modules_openresty_set_misc ; then
+		need_devel_kit=1
 		myconf+=" --add-module=${OPENRESTY_SET_MISC_MODULE_WD}"
 	fi
 
@@ -520,6 +508,10 @@ src_configure() {
 	if [ $mail_enabled ]; then
 		myconf+=" --with-mail"
 		use ssl && myconf+=" --with-mail_ssl_module"
+	fi
+
+	if [ $need_devel_kit ]; then
+		myconf+=" --add-module=${DEVEL_KIT_MODULE_WD}"
 	fi
 
 	# custom modules
