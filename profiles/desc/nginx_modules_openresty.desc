@@ -1,0 +1,7 @@
+# Description of NGINX_MODULES_OPENRESTY USE_EXPAND flags
+
+set_misc - Various set_xxx directives added to nginx's rewrite module
+drizzle - Upstream module for talking to MySQL and Drizzle directly
+postgres - Upstream module for talking to PostgreSQL directly
+rds_csv - Output filter module to convert Resty-DBD-Streams to CSV
+rds_json - Output filter module to convert Resty-DBD-Streams to JSON
