@@ -126,6 +126,12 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
+# nginx_devel_kit (https://github.com/simpl/ngx_devel_kit, BSD)
+HTTP_DEVEL_KIT_MODULE_PV="0.2.19"
+HTTP_DEVEL_KIT_MODULE_P="ngx_devel_kit-${HTTP_DEVEL_KIT_MODULE_PV}"
+HTTP_DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${HTTP_DEVEL_KIT_MODULE_PV}.tar.gz"
+HTTP_DEVEL_KIT_MODULE_WD="${WORKDIR}/${HTTP_DEVEL_KIT_MODULE_P}"
+
 # set-misc-module (https://github.com/openresty/set-misc-nginx-module, BSD-2)
 HTTP_SET_MISC_MODULE_PV="0.24"
 HTTP_SET_MISC_MODULE_P="set-misc-nginx-module-${HTTP_SET_MISC_MODULE_PV}"
@@ -174,6 +180,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_devel_kit? ( ${HTTP_DEVEL_KIT_MODULE_URI} -> ${HTTP_DEVEL_KIT_MODULE_P}.tar.gz )
 	nginx_modules_http_set_misc? ( ${HTTP_SET_MISC_MODULE_URI} -> ${HTTP_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_http_drizzle? ( ${HTTP_DRIZZLE_MODULE_URI} -> ${HTTP_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_http_postgres? ( ${HTTP_POSTGRES_MODULE_URI} -> ${HTTP_POSTGRES_MODULE_P}.tar.gz )
@@ -209,6 +216,7 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
+	http_devel_kit
 	http_set_misc
 	http_drizzle
 	http_postgres
@@ -270,7 +278,8 @@ REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
-	nginx_modules_http_push_stream? ( ssl )"
+	nginx_modules_http_push_stream? ( ssl )
+	nginx_modules_http_set_misc? ( nginx_modules_http_devel_kit )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -454,6 +463,11 @@ src_configure() {
 	if use nginx_modules_http_ajp ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_devel_kit ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_DEVEL_KIT_MODULE_WD}"
 	fi
 
 	if use nginx_modules_http_set_misc ; then
