@@ -511,7 +511,7 @@ src_configure() {
 	fi
 
 	if [ $need_devel_kit ]; then
-		myconf+=" --add-module=${DEVEL_KIT_MODULE_WD}"
+		myconf="--add-module=${DEVEL_KIT_MODULE_WD} ${myconf}"
 	fi
 
 	# custom modules
