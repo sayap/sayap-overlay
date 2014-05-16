@@ -96,7 +96,7 @@ HTTP_DAV_EXT_MODULE_URI="http://github.com/arut/nginx-dav-ext-module/archive/v${
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
 
 # echo-nginx-module (https://github.com/agentzh/echo-nginx-module, BSD license)
-HTTP_ECHO_MODULE_PV="0.52"
+HTTP_ECHO_MODULE_PV="0.53"
 HTTP_ECHO_MODULE_P="ngx_http_echo-${HTTP_ECHO_MODULE_PV}"
 HTTP_ECHO_MODULE_URI="https://github.com/agentzh/echo-nginx-module/archive/v${HTTP_ECHO_MODULE_PV}.tar.gz"
 HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
