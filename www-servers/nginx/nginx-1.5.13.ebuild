@@ -262,7 +262,7 @@ CDEPEND="
 	nginx_modules_http_metrics? ( dev-libs/yajl )
 	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_security? ( >=dev-libs/libxml2-2.7.8 dev-libs/apr-util www-servers/apache )
-	nginx_modules_openresty_drizzle? ( dev-db/drizzle )
+	nginx_modules_openresty_drizzle? ( || ( dev-db/libdrizzle dev-db/drizzle ) )
 	nginx_modules_openresty_postgres? ( dev-db/postgresql-base )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
@@ -470,6 +470,9 @@ src_configure() {
 	fi
 
 	if use nginx_modules_openresty_drizzle ; then
+		# Somehow need these exports when using dev-db/libdrizzle
+		export LIBDRIZZLE_INC=/usr/include/libdrizzle-1.0
+		export LIBDRIZZLE_LIB=/usr/lib
 		myconf+=" --add-module=${OPENRESTY_DRIZZLE_MODULE_WD}"
 	fi
 
