@@ -3,7 +3,7 @@
 name="logstash"
 description="a tool for managing events and logs"
 
-server_command="/usr/bin/logstash"
+server_command="/opt/logstash/bin/logstash"
 
 depend() {
 	use net
@@ -30,7 +30,9 @@ start() {
 	checkpath -d -o "${LOGSTASH_USER}" -m750 "$(dirname "${PIDFILE}")"
 	checkpath -d -o "${LOGSTASH_USER}" -m750 "$(dirname "${LOGFILE}")"
 
+	export LS_HEAP_SIZE
 	export JAVA_OPTS
+	export RUBYOPT
 
 	start-stop-daemon --start \
 		--user="${LOGSTASH_USER}" \

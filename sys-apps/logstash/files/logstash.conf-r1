@@ -1,0 +1,36 @@
+# Agent Flags
+# -f, --config CONFIG{FILE,DIR,GLOB}
+# -e CONFIGSTRING
+# -w, --filterworkers COUNT
+# --watchdog-timeout TIMEOUT
+# -l, --log FILE
+# -v[v]
+# --pluginpath PLUGIN_PATH
+
+# Web UI Flags
+# -a, --address ADDRESS
+# -p, --port PORT
+
+PIDFILE="/run/logstash/logstash.pid"
+
+LOGFILE="/var/log/logstash/logstash.log"
+
+LOGSTASH_USER="root:root"
+
+AGENT_START="true"
+AGENT_OPTS="--config /etc/logstash/conf.d/*.conf --log ${LOGFILE}"
+
+# Set to true to serve kibana from the same process. Alternatively, kibana is
+# installed in /opt/logstash/vendor/kibana and can be hosted by any web server.
+WEB_START="false"
+WEB_OPTS=""
+
+# The flag "-Xmx${LS_HEAP_SIZE}" will be added to JAVA_OPTS
+LS_HEAP_SIZE="512m"
+
+# Any additional flag that doesn't conflict with those set in
+# /opt/logstash/bin/logstash.lib.sh
+JAVA_OPTS=""
+
+# Set to blank to avoid error "no such file to load -- auto_gem"
+RUBYOPT=""

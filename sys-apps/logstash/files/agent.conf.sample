@@ -5,9 +5,7 @@ input {
 }
 
 output {
-  stdout {
-    debug => true
-  }
+  stdout {}
 
   #elasticsearch {
   #  embedded => true
