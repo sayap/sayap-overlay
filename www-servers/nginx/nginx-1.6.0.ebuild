@@ -126,6 +126,12 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
+# strip-module (https://github.com/evanmiller/mod_strip)
+HTTP_STRIP_MODULE_PV="0.1"
+HTTP_STRIP_MODULE_P="Mod_strip-${HTTP_STRIP_MODULE_PV}"
+HTTP_STRIP_MODULE_URI="http://wiki.nginx.org/images/6/63/${HTTP_STRIP_MODULE_P}.tar.gz"
+HTTP_STRIP_MODULE_WD="${WORKDIR}/mod_strip"
+
 # set-misc-module (https://github.com/openresty/set-misc-nginx-module, BSD-2)
 OPENRESTY_SET_MISC_MODULE_PV="0.24"
 OPENRESTY_SET_MISC_MODULE_P="set-misc-nginx-module-${OPENRESTY_SET_MISC_MODULE_PV}"
@@ -180,6 +186,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_strip? ( ${HTTP_STRIP_MODULE_URI} -> ${HTTP_STRIP_MODULE_P}.tar.gz )
 	nginx_modules_openresty_set_misc? ( ${OPENRESTY_SET_MISC_MODULE_URI} -> ${OPENRESTY_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_openresty_drizzle? ( ${OPENRESTY_DRIZZLE_MODULE_URI} -> ${OPENRESTY_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_openresty_postgres? ( ${OPENRESTY_POSTGRES_MODULE_URI} -> ${OPENRESTY_POSTGRES_MODULE_P}.tar.gz )
@@ -216,6 +223,7 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
+	http_strip
 	openresty_set_misc
 	openresty_drizzle
 	openresty_postgres
@@ -462,6 +470,11 @@ src_configure() {
 	if use nginx_modules_http_ajp ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_strip ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_STRIP_MODULE_WD}"
 	fi
 
 	if use nginx_modules_openresty_set_misc ; then
