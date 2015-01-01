@@ -1,7 +1,3 @@
-# Copyright 1999-2014 Gentoo Foundation
-# Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/www-servers/nginx/nginx-1.5.13.ebuild,v 1.1 2014/04/15 06:11:59 dev-zero Exp $
-
 EAPI="5"
 
 # Maintainer notes:
@@ -24,7 +20,7 @@ DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${DEVEL_KI
 DEVEL_KIT_MODULE_WD="${WORKDIR}/ngx_devel_kit-${DEVEL_KIT_MODULE_PV}"
 
 # http_uploadprogress (https://github.com/masterzen/nginx-upload-progress-module, BSD-2 license)
-HTTP_UPLOAD_PROGRESS_MODULE_PV="0.9.0"
+HTTP_UPLOAD_PROGRESS_MODULE_PV="0.9.1"
 HTTP_UPLOAD_PROGRESS_MODULE_P="ngx_http_upload_progress-${HTTP_UPLOAD_PROGRESS_MODULE_PV}-r1"
 HTTP_UPLOAD_PROGRESS_MODULE_URI="https://github.com/masterzen/nginx-upload-progress-module/archive/v${HTTP_UPLOAD_PROGRESS_MODULE_PV}.tar.gz"
 HTTP_UPLOAD_PROGRESS_MODULE_WD="${WORKDIR}/nginx-upload-progress-module-${HTTP_UPLOAD_PROGRESS_MODULE_PV}"
@@ -36,7 +32,7 @@ HTTP_HEADERS_MORE_MODULE_URI="https://github.com/agentzh/headers-more-nginx-modu
 HTTP_HEADERS_MORE_MODULE_WD="${WORKDIR}/headers-more-nginx-module-${HTTP_HEADERS_MORE_MODULE_PV}"
 
 # http_cache_purge (http://labs.frickle.com/nginx_ngx_cache_purge/, BSD-2 license)
-HTTP_CACHE_PURGE_MODULE_PV="2.1"
+HTTP_CACHE_PURGE_MODULE_PV="2.3"
 HTTP_CACHE_PURGE_MODULE_P="ngx_http_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}"
 HTTP_CACHE_PURGE_MODULE_URI="http://labs.frickle.com/files/ngx_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}.tar.gz"
 HTTP_CACHE_PURGE_MODULE_WD="${WORKDIR}/ngx_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}"
@@ -48,13 +44,13 @@ HTTP_SLOWFS_CACHE_MODULE_URI="http://labs.frickle.com/files/ngx_slowfs_cache-${H
 HTTP_SLOWFS_CACHE_MODULE_WD="${WORKDIR}/ngx_slowfs_cache-${HTTP_SLOWFS_CACHE_MODULE_PV}"
 
 # http_fancyindex (https://github.com/aperezdc/ngx-fancyindex, BSD license)
-HTTP_FANCYINDEX_MODULE_PV="0.3.3"
+HTTP_FANCYINDEX_MODULE_PV="0.3.4"
 HTTP_FANCYINDEX_MODULE_P="ngx_http_fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v${HTTP_FANCYINDEX_MODULE_PV}.tar.gz"
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/chaoslawful/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.9.7"
+HTTP_LUA_MODULE_PV="0.9.13"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/chaoslawful/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -66,7 +62,7 @@ HTTP_AUTH_PAM_MODULE_URI="http://web.iti.upv.es/~sto/nginx/ngx_http_auth_pam_mod
 HTTP_AUTH_PAM_MODULE_WD="${WORKDIR}/ngx_http_auth_pam_module-${HTTP_AUTH_PAM_MODULE_PV}"
 
 # http_upstream_check (https://github.com/yaoweibin/nginx_upstream_check_module, BSD license)
-HTTP_UPSTREAM_CHECK_MODULE_PV="0.1.9"
+HTTP_UPSTREAM_CHECK_MODULE_PV="0.3.0"
 HTTP_UPSTREAM_CHECK_MODULE_P="ngx_http_upstream_check-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
 HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/v${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
 HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
@@ -84,7 +80,7 @@ HTTP_NAXSI_MODULE_URI="https://github.com/nbs-system/naxsi/archive/${HTTP_NAXSI_
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
 
 # nginx-rtmp-module (http://github.com/arut/nginx-rtmp-module, BSD license)
-RTMP_MODULE_PV="1.1.4"
+RTMP_MODULE_PV="1.1.6"
 RTMP_MODULE_P="ngx_rtmp-${RTMP_MODULE_PV}"
 RTMP_MODULE_URI="http://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
@@ -96,7 +92,7 @@ HTTP_DAV_EXT_MODULE_URI="http://github.com/arut/nginx-dav-ext-module/archive/v${
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
 
 # echo-nginx-module (https://github.com/agentzh/echo-nginx-module, BSD license)
-HTTP_ECHO_MODULE_PV="0.53"
+HTTP_ECHO_MODULE_PV="0.57"
 HTTP_ECHO_MODULE_P="ngx_http_echo-${HTTP_ECHO_MODULE_PV}"
 HTTP_ECHO_MODULE_URI="https://github.com/agentzh/echo-nginx-module/archive/v${HTTP_ECHO_MODULE_PV}.tar.gz"
 HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
@@ -109,16 +105,16 @@ HTTP_SECURITY_MODULE_URI="https://www.modsecurity.org/tarball/${HTTP_SECURITY_MO
 HTTP_SECURITY_MODULE_WD="${WORKDIR}/${HTTP_SECURITY_MODULE_P}"
 
 # push-stream-module (https://github.com/wandenberg/nginx-push-stream-module, GPL-3)
-HTTP_PUSH_STREAM_MODULE_PV="0.4.0"
+HTTP_PUSH_STREAM_MODULE_PV="0.4.1"
 HTTP_PUSH_STREAM_MODULE_P="ngx_http_push_stream-${HTTP_PUSH_STREAM_MODULE_PV}"
 HTTP_PUSH_STREAM_MODULE_URI="https://github.com/wandenberg/nginx-push-stream-module/archive/${HTTP_PUSH_STREAM_MODULE_PV}.tar.gz"
 HTTP_PUSH_STREAM_MODULE_WD="${WORKDIR}/nginx-push-stream-module-${HTTP_PUSH_STREAM_MODULE_PV}"
 
 # sticky-module (https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng, BSD-2)
-HTTP_STICKY_MODULE_PV="1.2.4"
+HTTP_STICKY_MODULE_PV="1.2.5"
 HTTP_STICKY_MODULE_P="nginx_http_sticky_module_ng-${HTTP_STICKY_MODULE_PV}"
 HTTP_STICKY_MODULE_URI="https://bitbucket.org/nginx-goodies/nginx-sticky-module-ng/get/${HTTP_STICKY_MODULE_PV}.tar.bz2"
-HTTP_STICKY_MODULE_WD="${WORKDIR}/nginx-goodies-nginx-sticky-module-ng-c825ea7c5c91"
+HTTP_STICKY_MODULE_WD="${WORKDIR}/nginx-goodies-nginx-sticky-module-ng-bd312d586752"
 
 # ajp-module (https://github.com/yaoweibin/nginx_ajp_module, BSD-2)
 HTTP_AJP_MODULE_PV="0.3.0"
@@ -126,20 +122,26 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
+# strip-module (https://github.com/evanmiller/mod_strip)
+HTTP_STRIP_MODULE_PV="0.1"
+HTTP_STRIP_MODULE_P="Mod_strip-${HTTP_STRIP_MODULE_PV}"
+HTTP_STRIP_MODULE_URI="http://wiki.nginx.org/images/6/63/${HTTP_STRIP_MODULE_P}.tar.gz"
+HTTP_STRIP_MODULE_WD="${WORKDIR}/mod_strip"
+
 # set-misc-module (https://github.com/openresty/set-misc-nginx-module, BSD-2)
-OPENRESTY_SET_MISC_MODULE_PV="0.24"
+OPENRESTY_SET_MISC_MODULE_PV="0.27"
 OPENRESTY_SET_MISC_MODULE_P="set-misc-nginx-module-${OPENRESTY_SET_MISC_MODULE_PV}"
 OPENRESTY_SET_MISC_MODULE_URI="https://github.com/openresty/set-misc-nginx-module/archive/v${OPENRESTY_SET_MISC_MODULE_PV}.tar.gz"
 OPENRESTY_SET_MISC_MODULE_WD="${WORKDIR}/${OPENRESTY_SET_MISC_MODULE_P}"
 
 # drizzle-module (https://github.com/openresty/drizzle-nginx-module, BSD-2)
-OPENRESTY_DRIZZLE_MODULE_PV="0.1.7"
+OPENRESTY_DRIZZLE_MODULE_PV="0.1.8"
 OPENRESTY_DRIZZLE_MODULE_P="drizzle-nginx-module-${OPENRESTY_DRIZZLE_MODULE_PV}"
 OPENRESTY_DRIZZLE_MODULE_URI="https://github.com/openresty/drizzle-nginx-module/archive/v${OPENRESTY_DRIZZLE_MODULE_PV}.tar.gz"
 OPENRESTY_DRIZZLE_MODULE_WD="${WORKDIR}/${OPENRESTY_DRIZZLE_MODULE_P}"
 
 # postgres-module (https://github.com/FRiCKLE/ngx_postgres, BSD-2)
-OPENRESTY_POSTGRES_MODULE_PV="1.0rc3"
+OPENRESTY_POSTGRES_MODULE_PV="1.0rc5"
 OPENRESTY_POSTGRES_MODULE_P="ngx_postgres-${OPENRESTY_POSTGRES_MODULE_PV}"
 OPENRESTY_POSTGRES_MODULE_URI="https://github.com/FRiCKLE/ngx_postgres/archive/${OPENRESTY_POSTGRES_MODULE_PV}.tar.gz"
 OPENRESTY_POSTGRES_MODULE_WD="${WORKDIR}/${OPENRESTY_POSTGRES_MODULE_P}"
@@ -180,6 +182,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_strip? ( ${HTTP_STRIP_MODULE_URI} -> ${HTTP_STRIP_MODULE_P}.tar.gz )
 	nginx_modules_openresty_set_misc? ( ${OPENRESTY_SET_MISC_MODULE_URI} -> ${OPENRESTY_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_openresty_drizzle? ( ${OPENRESTY_DRIZZLE_MODULE_URI} -> ${OPENRESTY_DRIZZLE_MODULE_P}.tar.gz )
 	nginx_modules_openresty_postgres? ( ${OPENRESTY_POSTGRES_MODULE_URI} -> ${OPENRESTY_POSTGRES_MODULE_P}.tar.gz )
@@ -216,6 +219,7 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
+	http_strip
 	openresty_set_misc
 	openresty_drizzle
 	openresty_postgres
@@ -263,7 +267,7 @@ CDEPEND="
 	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_security? ( >=dev-libs/libxml2-2.7.8 dev-libs/apr-util www-servers/apache )
 	nginx_modules_openresty_drizzle? ( || ( dev-db/libdrizzle dev-db/drizzle ) )
-	nginx_modules_openresty_postgres? ( dev-db/postgresql-base )"
+	nginx_modules_openresty_postgres? ( dev-db/postgresql )"
 RDEPEND="${CDEPEND}"
 DEPEND="${CDEPEND}
 	nginx_modules_http_security? (
@@ -462,6 +466,11 @@ src_configure() {
 	if use nginx_modules_http_ajp ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_strip ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_STRIP_MODULE_WD}"
 	fi
 
 	if use nginx_modules_openresty_set_misc ; then
