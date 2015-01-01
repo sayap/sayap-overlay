@@ -67,10 +67,10 @@ HTTP_UPSTREAM_CHECK_MODULE_P="ngx_http_upstream_check-${HTTP_UPSTREAM_CHECK_MODU
 HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/v${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
 HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
 
-# http_metrics (https://github.com/madvertise/ngx_metrics, BSD license)
+# http_metrics (https://github.com/zenops/ngx_metrics, BSD license)
 HTTP_METRICS_MODULE_PV="0.1.1"
 HTTP_METRICS_MODULE_P="ngx_metrics-${HTTP_METRICS_MODULE_PV}"
-HTTP_METRICS_MODULE_URI="https://github.com/madvertise/ngx_metrics/archive/v${HTTP_METRICS_MODULE_PV}.tar.gz"
+HTTP_METRICS_MODULE_URI="https://github.com/zenops/ngx_metrics/archive/v${HTTP_METRICS_MODULE_PV}.tar.gz"
 HTTP_METRICS_MODULE_WD="${WORKDIR}/ngx_metrics-${HTTP_METRICS_MODULE_PV}"
 
 # naxsi-core (https://github.com/nbs-system/naxsi, GPLv2+)
@@ -122,6 +122,12 @@ HTTP_AJP_MODULE_P="ngx_http_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/yaoweibin/nginx_ajp_module/archive/v${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
+# mogilefs-module (http://www.grid.net.ru/nginx/mogilefs.en.html, BSD-2)
+HTTP_MOGILEFS_MODULE_PV="1.0.4"
+HTTP_MOGILEFS_MODULE_P="ngx_mogilefs_module-${HTTP_MOGILEFS_MODULE_PV}"
+HTTP_MOGILEFS_MODULE_URI="http://www.grid.net.ru/nginx/download/nginx_mogilefs_module-${HTTP_MOGILEFS_MODULE_PV}.tar.gz"
+HTTP_MOGILEFS_MODULE_WD="${WORKDIR}/nginx_mogilefs_module-${HTTP_MOGILEFS_MODULE_PV}"
+
 # strip-module (https://github.com/evanmiller/mod_strip)
 HTTP_STRIP_MODULE_PV="0.1"
 HTTP_STRIP_MODULE_P="Mod_strip-${HTTP_STRIP_MODULE_PV}"
@@ -159,7 +165,7 @@ OPENRESTY_RDS_JSON_MODULE_URI="https://github.com/openresty/rds-json-nginx-modul
 OPENRESTY_RDS_JSON_MODULE_WD="${WORKDIR}/${OPENRESTY_RDS_JSON_MODULE_P}"
 
 
-inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator
+inherit eutils ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="http://nginx.org"
@@ -182,6 +188,7 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_mogilefs? ( ${HTTP_MOGILEFS_MODULE_URI} -> ${HTTP_MOGILEFS_MODULE_P}.tar.gz )
 	nginx_modules_http_strip? ( ${HTTP_STRIP_MODULE_URI} -> ${HTTP_STRIP_MODULE_P}.tar.gz )
 	nginx_modules_openresty_set_misc? ( ${OPENRESTY_SET_MISC_MODULE_URI} -> ${OPENRESTY_SET_MISC_MODULE_P}.tar.gz )
 	nginx_modules_openresty_drizzle? ( ${OPENRESTY_DRIZZLE_MODULE_URI} -> ${OPENRESTY_DRIZZLE_MODULE_P}.tar.gz )
@@ -194,7 +201,7 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_push_stream? ( GPL-3 )"
 
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~ppc ~x86 ~amd64-fbsd ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif fastcgi
 geo gzip limit_req limit_conn map memcached proxy referer rewrite scgi ssi
@@ -219,6 +226,7 @@ NGINX_MODULES_3RD="
 	http_push_stream
 	http_sticky
 	http_ajp
+	http_mogilefs
 	http_strip
 	openresty_set_misc
 	openresty_drizzle
@@ -226,8 +234,8 @@ NGINX_MODULES_3RD="
 	openresty_rds_csv
 	openresty_rds_json"
 
-IUSE="aio debug +http +http-cache ipv6 libatomic +pcre pcre-jit rtmp selinux ssl
-userland_GNU vim-syntax"
+IUSE="aio debug +http +http-cache ipv6 libatomic luajit +pcre pcre-jit rtmp
+selinux ssl userland_GNU vim-syntax"
 
 for mod in $NGINX_MODULES_STD; do
 	IUSE="${IUSE} +nginx_modules_http_${mod}"
@@ -248,7 +256,6 @@ done
 CDEPEND="
 	pcre? ( >=dev-libs/libpcre-4.2 )
 	pcre-jit? ( >=dev-libs/libpcre-8.20[jit] )
-	selinux? ( sec-policy/selinux-nginx )
 	ssl? ( dev-libs/openssl )
 	http-cache? ( userland_GNU? ( dev-libs/openssl ) )
 	nginx_modules_http_geoip? ( dev-libs/geoip )
@@ -261,17 +268,17 @@ CDEPEND="
 	nginx_modules_http_secure_link? ( userland_GNU? ( dev-libs/openssl ) )
 	nginx_modules_http_spdy? ( >=dev-libs/openssl-1.0.1c )
 	nginx_modules_http_xslt? ( dev-libs/libxml2 dev-libs/libxslt )
-	nginx_modules_http_lua? ( || ( dev-lang/lua dev-lang/luajit ) )
+	nginx_modules_http_lua? ( !luajit? ( dev-lang/lua ) luajit? ( dev-lang/luajit ) )
 	nginx_modules_http_auth_pam? ( virtual/pam )
 	nginx_modules_http_metrics? ( dev-libs/yajl )
 	nginx_modules_http_dav_ext? ( dev-libs/expat )
 	nginx_modules_http_security? ( >=dev-libs/libxml2-2.7.8 dev-libs/apr-util www-servers/apache )
 	nginx_modules_openresty_drizzle? ( || ( dev-db/libdrizzle dev-db/drizzle ) )
 	nginx_modules_openresty_postgres? ( dev-db/postgresql )"
-RDEPEND="${CDEPEND}"
+RDEPEND="${CDEPEND}
+	selinux? ( sec-policy/selinux-nginx )
+"
 DEPEND="${CDEPEND}
-	nginx_modules_http_security? (
-		nginx_modules_http_lua? ( virtual/pkgconfig ) )
 	arm? ( dev-libs/libatomic_ops )
 	libatomic? ( dev-libs/libatomic_ops )"
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
@@ -316,7 +323,7 @@ src_prepare() {
 	epatch "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 
 	if use nginx_modules_http_upstream_check; then
-		epatch "${FILESDIR}"/upstream-check-${PV}.patch
+		epatch "${FILESDIR}"/check_1.5.12+.patch
 	fi
 
 	if use nginx_modules_http_lua; then
@@ -344,6 +351,11 @@ src_configure() {
 	# mod_security needs to generate nginx/modsecurity/config before including it
 	if use nginx_modules_http_security; then
 		cd "${HTTP_SECURITY_MODULE_WD}"
+		if use luajit ; then
+			sed -i \
+				-e 's|^\(LUA_PKGNAMES\)=.*|\1="luajit"|' \
+				configure || die
+		fi
 		./configure \
 			--enable-standalone-module \
 			$(use_enable pcre-jit) \
@@ -410,6 +422,13 @@ src_configure() {
 	if use nginx_modules_http_lua; then
 		http_enabled=1
 		need_devel_kit=1
+		if use luajit; then
+			export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
+			export LUAJIT_INC=$(pkg-config --variable includedir luajit)
+		else
+			export LUA_LIB=$(pkg-config --variable libdir lua)
+			export LUA_INC=$(pkg-config --variable includedir lua)
+		fi
 		myconf+=" --add-module=${HTTP_LUA_MODULE_WD}"
 	fi
 
@@ -466,6 +485,11 @@ src_configure() {
 	if use nginx_modules_http_ajp ; then
 		http_enabled=1
 		myconf+=" --add-module=${HTTP_AJP_MODULE_WD}"
+	fi
+
+	if use nginx_modules_http_mogilefs ; then
+		http_enabled=1
+		myconf+=" --add-module=${HTTP_MOGILEFS_MODULE_WD}"
 	fi
 
 	if use nginx_modules_http_strip ; then
@@ -546,7 +570,7 @@ src_configure() {
 		--pid-path="${EPREFIX}"/run/${PN}.pid \
 		--lock-path="${EPREFIX}"/run/lock/${PN}.lock \
 		--with-cc-opt="-I${EROOT}usr/include" \
-		--with-ld-opt="-L${EROOT}usr/lib" \
+		--with-ld-opt="-L${EROOT}usr/$(get_libdir)" \
 		--http-log-path="${EPREFIX}"/var/log/${PN}/access_log \
 		--http-client-body-temp-path="${EPREFIX}/${NGINX_HOME_TMP}"/client \
 		--http-proxy-temp-path="${EPREFIX}/${NGINX_HOME_TMP}"/proxy \
@@ -554,6 +578,11 @@ src_configure() {
 		--http-scgi-temp-path="${EPREFIX}/${NGINX_HOME_TMP}"/scgi \
 		--http-uwsgi-temp-path="${EPREFIX}/${NGINX_HOME_TMP}"/uwsgi \
 		${myconf} || die "configure failed"
+
+	# A purely cosmetic change that makes nginx -V more readable. This can be
+	# good if people outside the gentoo community would troubleshoot and
+	# question the users setup.
+	sed -i -e "s|${WORKDIR}|external_module|g" objs/ngx_auto_config.h || die
 }
 
 src_compile() {
@@ -599,12 +628,12 @@ src_install() {
 
 	# logrotate
 	insinto /etc/logrotate.d
-	newins "${FILESDIR}"/nginx.logrotate nginx
+	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
 
 	if use nginx_modules_http_perl; then
 		cd "${S}"/objs/src/http/modules/perl/
 		einstall DESTDIR="${D}" INSTALLDIRS=vendor
-		fixlocalpod
+		perl_delete_localpod
 	fi
 
 	if use nginx_modules_http_cache_purge; then
