@@ -1,0 +1,40 @@
+From https://github.com/FRiCKLE/ngx_postgres/pull/38
+
+diff --git a/src/ngx_postgres_util.c b/src/ngx_postgres_util.c
+index 11b2797..6d8889e 100644
+--- a/src/ngx_postgres_util.c
++++ b/src/ngx_postgres_util.c
+@@ -45,8 +45,12 @@ void
+ ngx_postgres_upstream_finalize_request(ngx_http_request_t *r,
+     ngx_http_upstream_t *u, ngx_int_t rc)
+ {
++#if defined(nginx_version) && (nginx_version < 1009001)
++
+     ngx_time_t  *tp;
+ 
++#endif
++
+     dd("entering");
+ 
+     ngx_log_debug1(NGX_LOG_DEBUG_HTTP, r->connection->log, 0,
+@@ -61,11 +65,20 @@ ngx_postgres_upstream_finalize_request(ngx_http_request_t *r,
+         u->resolved->ctx = NULL;
+     }
+ 
++#if defined(nginx_version) && (nginx_version >= 1009001)
++
++    if (u->state && u->state->response_time) {
++        u->state->response_time = ngx_timeofday()->msec - u->state->response_time;
++
++#else
++
+     if (u->state && u->state->response_sec) {
+         tp = ngx_timeofday();
+         u->state->response_sec = tp->sec - u->state->response_sec;
+         u->state->response_msec = tp->msec - u->state->response_msec;
+ 
++#endif
++
+         if (u->pipe) {
+             u->state->response_length = u->pipe->read_length;
+         }
